@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/services/weather_services.dart';
 
 class SearchScreen extends StatelessWidget {
   String? cityName;
@@ -14,8 +16,11 @@ class SearchScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
-            onSubmitted: (value) {
+            onSubmitted: (value) async {
               cityName = value;
+              WeatherServices services = WeatherServices();
+              WeatherModel weatherModel =
+                  await services.getWeather(cityName: cityName!);
             },
             decoration: InputDecoration(
                 contentPadding:
