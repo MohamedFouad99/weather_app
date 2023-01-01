@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 class WeatherModel {
-  String date;
+  DateTime date;
   double temp;
   double maxTemp;
   double minTemp;
@@ -33,5 +33,44 @@ class WeatherModel {
         maxTemp: jsonData['maxtemp_c'],
         minTemp: jsonData['mintemp_c'],
         weatherStateName: jsonData['condition']['text']);
+  }
+  String getImage() {
+    if (weatherStateName == 'Thunderstorm') {
+      return 'assets/images/thunderstorm.png';
+    } else if (weatherStateName == 'Sleet' ||
+        weatherStateName == 'Snow' ||
+        weatherStateName == 'Hail') {
+      return 'assets/images/snow.png';
+    } else if (weatherStateName == 'Heavy Cloud' ||
+        weatherStateName == 'Partly cloudy') {
+      return 'assets/images/cloudy.png';
+    } else if (weatherStateName == 'Light Rain' ||
+        weatherStateName == 'Heavy Rain' ||
+        weatherStateName == 'Showers' ||
+        weatherStateName == 'Moderate rain') {
+      return 'assets/images/rainy.png';
+    } else {
+      return 'assets/images/clear.png';
+    }
+  }
+
+  MaterialColor getColor() {
+    if (weatherStateName == 'Thunderstorm') {
+      return Colors.orange;
+    } else if (weatherStateName == 'Sleet' ||
+        weatherStateName == 'Snow' ||
+        weatherStateName == 'Hail') {
+      return Colors.blue;
+    } else if (weatherStateName == 'Heavy Cloud' ||
+        weatherStateName == 'Partly cloudy') {
+      return Colors.blueGrey;
+    } else if (weatherStateName == 'Light Rain' ||
+        weatherStateName == 'Heavy Rain' ||
+        weatherStateName == 'Showers' ||
+        weatherStateName == 'Moderate rain') {
+      return Colors.blue;
+    } else {
+      return Colors.orange;
+    }
   }
 }

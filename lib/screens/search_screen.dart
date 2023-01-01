@@ -1,11 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+
 import 'package:weather_app/models/weather_model.dart';
+import 'package:weather_app/provider/weather_provider.dart';
 import 'package:weather_app/services/weather_services.dart';
 
 class SearchScreen extends StatelessWidget {
   String? cityName;
+  VoidCallback? updateUi;
+  SearchScreen({
+    this.cityName,
+    this.updateUi,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +28,14 @@ class SearchScreen extends StatelessWidget {
             onSubmitted: (value) async {
               cityName = value;
               WeatherServices services = WeatherServices();
-              WeatherModel weatherModel =
+              WeatherModel weather =
                   await services.getWeather(cityName: cityName!);
+              Provider.of<WeatherProvider>(context, listen: false).weaherData =
+                  weather;
+              Provider.of<WeatherProvider>(context, listen: false).cityName =
+                  cityName;
+
+              Navigator.pop(context);
             },
             decoration: InputDecoration(
                 contentPadding:
