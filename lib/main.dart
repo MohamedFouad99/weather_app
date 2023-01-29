@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          // primarySwatch: Provider.of<WeatherProvider>(context).WeatherDate ==
-          //         null
-          //     ? Colors.blue
-          //     : Provider.of<WeatherProvider>(context).WeatherDate!.getColor()
-          ),
+          primarySwatch:
+              BlocProvider.of<WeatherCubit>(context).weatherModel == null
+                  ? Colors.blue
+                  : BlocProvider.of<WeatherCubit>(context)
+                      .weatherModel!
+                      .getColor()),
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
